@@ -1,8 +1,2 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<h1> Optiventure</h1>
+This undergoing project aims to empower entrepreneurs and investors in identifying optimal business opportunities. Leveraging data scraping, machine learning, and geospatial analysis, Optiventure scrapes reviews and relevant data from Google Maps, applies machine learning algorithms to analyze this data, and delivers recommendations for starting successful businesses in specific areas. Users are able to type in their desired location, their interest in specific types of businesses, and any other relevant information through a simple interface, and in return, they get the suggested businesses and corresponding success rates.
