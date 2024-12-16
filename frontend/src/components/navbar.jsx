@@ -1,0 +1,83 @@
+import { NavLink } from "react-router-dom";
+import "../assets/navbar.css";
+import { auth } from "../firebase";
+
+export function Navbar() {
+  const user = auth.currentUser;
+
+  return (
+    <nav
+      className="bg-blue-900 p-3 flex justify-between items-center w-full rounded border-blue-900"
+      style={{
+        backgroundImage: "url(./public/navbar.png)",
+        backgroundSize: "cover",
+      }}
+    >
+      {/* Left Side: Logo */}
+      <div className="flex items-center inline-block">
+        <img
+          src="./public/optiAbstractlogo.png"
+          alt="OptiVenture Logo"
+          className="h-13 w-10 rounded-full"
+        />
+        <span className="text-white text-2xl ">PTIVENTURE</span>
+      </div>
+
+      {/* Middle: Navigation Links */}
+      <div className="flex space-x-4 flex-nowrap mr-80">
+        <NavLink
+          to="/"
+          end
+          className={({ isActive }) =>
+            isActive ? "btneuro py-1.5 px-3 active-link" : "btneuro py-1.5 px-3"
+          }
+        >
+          Home
+        </NavLink>
+        <NavLink
+          to="/reports"
+          className={({ isActive }) =>
+            isActive ? "btneuro py-1.5 px-3 active-link" : "btneuro py-1.5 px-3"
+          }
+        >
+          Reports
+        </NavLink>
+        <NavLink
+          to="/notes"
+          className={({ isActive }) =>
+            isActive ? "btneuro py-1.5 px-3 active-link" : "btneuro py-1.5 px-3"
+          }
+        >
+          Notes
+        </NavLink>
+        <NavLink
+          to="/forum"
+          className={({ isActive }) =>
+            isActive ? "btneuro py-1.5 px-3 active-link" : "btneuro py-1.5 px-3"
+          }
+        >
+          Forum
+        </NavLink>
+      </div>
+
+      {/* Right Side: Profile Section */}
+      <div className="flex space-x-4 items-center">
+        {user ? (
+          <>
+            <span className="text-green-500">{user.displayName}</span>
+            <NavLink to="/profile" className="btneuro py-1 px-3 rounded-xl">
+              Profile
+            </NavLink>
+          </>
+        ) : (
+          <NavLink
+            to="/login"
+            className="bg-red-500 text-white py-1 px-3 rounded-xl"
+          >
+            Not signed in
+          </NavLink>
+        )}
+      </div>
+    </nav>
+  );
+}

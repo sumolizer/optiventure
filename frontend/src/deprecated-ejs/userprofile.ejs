@@ -1,0 +1,15 @@
+<% layout('./Layouts/boilerplate') -%>
+
+    <h1>
+        <img src="" width="40px" height="35px
+            alt="">
+        <%=suse.name %>
+    </h1>
+    <ul>
+        <% suse.moments.forEach(moment=> { %>
+            <li>
+                <%= moment.opinion %>
+            </li>
+            <% }) %>
+    </ul>
+    <div>
