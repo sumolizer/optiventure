@@ -104,13 +104,8 @@ a {
   z-index: 1;
 }
 .notescontainer {
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 16px;
-  padding: 5px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   text-align: center;
+  margin: 8px;
 }
 
 .glassmorphic-container h2 {
@@ -164,4 +159,16 @@ li {
   border: 1px solid rgba(255, 255, 255, 0.3);
   text-align: center;
   z-index: 1;
+}
+.create {
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(17, 25, 40, 0.75);
+  border-radius: 12px;
+  border: 1px solid rgba(17, 15, 15, 0.125);
+  display: block;
+  border-radius: 16px;
+  padding: 28px;
+  text-align: center;
+  margin: 8px;
 }

@@ -4,6 +4,7 @@ export default {
     "./src/components/navbar.jsx",
     "./src/components/allcomments.jsx",
     "./src/components/note.jsx",
+    "./src/components/createnote.jsx",
     "./src/pages/Login.jsx",
     "./src/pages/Signup.jsx",
     "./src/pages/Reports.jsx",

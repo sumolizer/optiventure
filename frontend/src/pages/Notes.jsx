@@ -1,6 +1,13 @@
+import { useState } from "react";
 import { Navbar } from "../components/Navbar";
 import NotesList from "../components/note";
 function Notes() {
+  const [showCreateModal, setShowCreateModal] = useState(false);
+
+  // Handler to toggle the modal
+  const toggleCreateModal = () => {
+    setShowCreateModal(!showCreateModal);
+  };
   let momentsarray = [
     {
       id: 1,
