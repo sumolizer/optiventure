@@ -41,9 +41,9 @@ const NotesList = ({ moments }) => {
           </ul>
         </div>
       </div>
-
-      {/* Render Create Note Modal */}
-      {showCreateModal && <CreateNoteModal onClose={toggleCreateModal} />}
+      {showCreateModal && (
+        <CreateNoteModal onClose={toggleCreateModal} kind="Note" />
+      )}
     </div>
   );
 };

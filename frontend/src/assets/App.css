@@ -1,3 +1,41 @@
 body {
   background-color: #16222a;
 }
+/* Page fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Page fade-out animation */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(10%);
+  }
+}
+
+/* Apply animations to page container */
+.page-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.page-container > * {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Optional: Add an animation class to trigger fade-out */
+.page-container.fade-out > * {
+  animation: fadeOut 0.5s ease-in-out;
+}
