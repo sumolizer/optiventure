@@ -4,18 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start" : "nodemon my_file.js"
   },
   "author": "Alyan",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "cowsay": "^1.6.0",
     "ejs": "^3.1.10",
     "ejs-mate": "^4.0.0",
     "express": "^4.19.2",
     "method-override": "^3.0.0",
     "mongoose": "^8.5.3",
-    "nodemon": "^3.1.4",
+    "nodemon": "^3.1.9",
     "uuid": "^10.0.0"
   }
 }

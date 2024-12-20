@@ -1,93 +1,125 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const engine = require("ejs-mate");
 const methodOverride = require("method-override");
-
 const mongoose = require("mongoose");
-const Moment = require("./models/moment");
-const userm = require("./models/user");
+const Note = require("./models/Notes");
+const Comment = require("./models/Forum");
+const cors = require("cors");
+app.use(cors());
 mongoose
-  .connect("mongodb://127.0.0.1:27017/moments", {
+  .connect("mongodb://127.0.0.1:27017/optiventure", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Could not connect to MongoDB...", err));
-app.engine("ejs", engine);
-app.set("view engine", "ejs");
+
 app.use(express.static(path.join(__dirname, "public")));
-app.set("views", path.join(__dirname, "/views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride("_method"));
 
-app.listen(6969, () => {
-  console.log("Listening ...");
-});
-
-// Middleware to log every request
-app.use("/pee", (req, res, next) => {
-  console.log("Middleware is working");
+// Middleware for logging requests
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
   next();
 });
-app.get("/euro/index", async (req, res) => {
-  const moments = await Moment.find().populate("user", "name");
-  res.render("allcomments.ejs", { moments });
-});
-app.get("/euro/new", (req, res) => {
-  res.render("newmoment.ejs");
-});
-app.get("/euro/:id", async (req, res) => {
+
+app.post("/api/notes", async (req, res) => {
+  const { userId, noteText } = req.body;
   try {
-    const { id } = req.params;
-    const moment = await Moment.findById(id);
-    res.render("edit.ejs", { moment });
+    const newNote = new Note({ userId, noteText });
+    await newNote.save();
+    res.status(201).json({ success: true, note: newNote });
   } catch (err) {
-    res.status(500).send("Server Error");
+    console.error("Error during note creation:", err);
+    res.status(400).json({ success: false, error: err.message });
   }
 });
-app.get("/euro/:id/edit", async (req, res) => {
-  const { id } = req.params;
-  const moment = await Moment.findById(id);
-  res.render("patch.ejs", { moment });
-});
-app.get("/euro/profile/:user", async (req, res) => {
-  const { user } = req.params;
-  const suse = await userm.findOne({ name: user }).populate("moments");
-  res.render("userprofile.ejs", { suse });
-});
-app.post("/euro/index", async (req, res) => {
-  const { username, opinion } = req.body;
-  const user = await userm.findOne({ name: username }).populate("moments");
 
-  if (user) {
-    const newMoment = new Moment({ user: user._id, opinion });
-    await newMoment.save();
-
-    user.moments.push(newMoment);
-    await user.save();
+app.get("/api/notes", async (req, res) => {
+  try {
+    const notes = await Note.find();
+    res.status(200).json(notes);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
-
-  res.redirect("/euro/index");
 });
 
-app.patch("/euro/:id", async (req, res) => {
+app.patch("/api/notes/:id", async (req, res) => {
   const { id } = req.params;
-  const newCommentText = req.body.opinion;
-  const moment = await moment.findByIdAndUpdate(id, {
-    opinion: newCommentText,
-  });
-  res.redirect("/euro/index");
+  const { noteText } = req.body;
+  try {
+    const updatedNote = await Note.findByIdAndUpdate(
+      id,
+      { noteText },
+      { new: true }
+    );
+    res.status(200).json({ success: true, note: updatedNote });
+  } catch (err) {
+    res.status(400).json({ success: false, error: err.message });
+  }
 });
-app.delete("/euro/:id", async (req, res) => {
+
+app.delete("/api/notes/:id", async (req, res) => {
   const { id } = req.params;
-  await Moment.findByIdAndDelete(id);
-  res.redirect("/euro/index");
+  try {
+    await Note.findByIdAndDelete(id);
+    res.status(200).json({ success: true });
+  } catch (err) {
+    res.status(400).json({ success: false, error: err.message });
+  }
 });
-app.get("/", (req, res) => {
-  res.redirect("/euro/index");
+
+// Routes for Forum Comments
+app.post("/api/forum", async (req, res) => {
+  const { userId, commentText } = req.body;
+  try {
+    const newComment = new Comment({ userId, commentText });
+    await newComment.save();
+    res.status(201).json({ success: true, comment: newComment });
+  } catch (err) {
+    res.status(400).json({ success: false, error: err.message });
+  }
 });
-app.get("*", (req, res) => {
-  res.redirect("/euro/index");
+
+app.get("/api/forum", async (req, res) => {
+  try {
+    const comments = await Comment.find();
+    res.status(200).json(comments);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.patch("/api/forum/:id/vote", async (req, res) => {
+  const { id } = req.params;
+  const { voteType } = req.body; // "upvote" or "downvote"
+  try {
+    const increment = voteType === "upvote" ? 1 : -1;
+    const updatedComment = await Comment.findByIdAndUpdate(
+      id,
+      { $inc: { votes: increment } },
+      { new: true }
+    );
+    res.status(200).json({ success: true, comment: updatedComment });
+  } catch (err) {
+    res.status(400).json({ success: false, error: err.message });
+  }
+});
+
+app.delete("/api/forum/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    await Comment.findByIdAndDelete(id);
+    res.status(200).json({ success: true });
+  } catch (err) {
+    res.status(400).json({ success: false, error: err.message });
+  }
+});
+
+// Start server
+app.listen(7777, () => {
+  console.log("Server is running on port 5175...");
 });
