@@ -1,0 +1,18 @@
+<% layout('./Layouts/boilerplate') -%>
+
+    <h1>Showing you all comments my mans</h1>
+    <div>
+        <ul>
+            <% for(moment of moments) { %>
+                <li style="font-size : x-large;">
+                    <%= moment.opinion %>
+                        -
+                        <br>
+                        <p style="font-size : small; background-color: rgb(87, 108, 108); display: inline-block;">
+                            <%=moment.user[name] %>
+                        </p>
+                        <a style="display: inline-block;" href="/euro/<%= moment._id %>"> VIEW</a>
+
+                </li>
+                <% } %>
+        </ul>

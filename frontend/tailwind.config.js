@@ -10,6 +10,7 @@ export default {
     "./src/pages/Reports.jsx",
     "./src/pages/Notes.jsx",
     "./src/pages/Profile.jsx",
+    "./src/pages/Home.jsx",
   ],
   theme: {
     extend: {},

@@ -1,0 +1,123 @@
+body {
+  background-color: rgb(89, 87, 87);
+  font-family: "Segoe UI";
+  margin: 0;
+  padding: 0;
+  background-size: cover;
+}
+
+.imge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+h1 {
+  border-radius: 12px;
+  background-color: #f9bf4b;
+  box-shadow: #f9bf4b;
+  border: 1px solid transparent;
+  padding: 8px;
+}
+
+h4 {
+  background-color: #046ad0;
+  display: inline-block;
+  box-shadow: #f9bf4b;
+  border: 1px solid transparent;
+  padding: 8px;
+  border-radius: 12px;
+  color: wheat;
+}
+
+a {
+  border-radius: 22px;
+  background-color: #f9bf4b;
+  box-shadow: none;
+  border: 1px solid transparent;
+  display: block;
+  margin: 0.5px;
+  font-size: 14px;
+  padding: 8px;
+  /* Increase padding */
+  font-family: "UEFA Euro", Arial, sans-serif;
+  /* Setting font family */
+  font-weight: 422;
+  /* Setting font weight */
+}
+
+.navbar {
+  background-color: #090e15;
+  /* Matching the background color */
+  overflow: hidden;
+  padding: 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.navbar img {
+  height: 40px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.glassmorphic-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  text-align: center;
+  z-index: 1;
+}
+
+.glassmorphic-container h2 {
+  margin: 0;
+  font-family: "UEFA Euro";
+  font-weight: 122;
+  color: #fff;
+}
+
+ul {
+  margin: 4px;
+}
+
+li {
+  background-color: #0039e5;
+  border-radius: 12px;
+  display: block;
+  padding: 8px;
+  margin: 4px;
+  color: #fffcfc;
+}
+
+textarea,
+input {
+  border-radius: 8px !important;
+  size: 12px !important;
+}
+
+button {
+  border-radius: 22px;
+  background-color: #f9bf4b;
+  box-shadow: none;
+  align-self: center;
+  border: 1px solid transparent;
+  display: block;
+  margin: 0.5px;
+  font-size: 20px;
+  padding: 8px 16px;
+  font-family: "UEFA Euro", Arial, sans-serif;
+  font-weight: 422;
+}

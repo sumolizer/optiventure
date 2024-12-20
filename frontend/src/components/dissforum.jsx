@@ -1,11 +1,13 @@
 import { useState } from "react";
 import "../assets/forum.css";
 import CreateNoteModal from "./createnote";
+import { useAuth } from "../context/AuthContext";
 const CommentsList = ({ moments }) => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const toggleCreateModal = () => {
     setShowCreateModal(!showCreateModal);
   };
+  const { user } = useAuth();
   return (
     <div className="relative">
       <div className={`${showCreateModal ? "blur-md" : ""}`}>
@@ -14,9 +16,16 @@ const CommentsList = ({ moments }) => {
             🗒️ Disscussion Forum{" "}
           </h1>
           <br />
-          <button onClick={toggleCreateModal} className="btnsign">
-            + Share your thoughts with the community !
-          </button>
+          {!user ? (
+            <p className="btnsign  bg-red-700  text-yellow-50 rounded-full inline-block p-1 px-2 mx-9 align-middle">
+              Please <a href="/login">Login</a> to post your thoughts.
+            </p>
+          ) : (
+            <button onClick={toggleCreateModal} className="btnsign">
+              + Share your thoughts with the community !
+            </button>
+          )}
+
           <ul className="flex flex-wrap gap-4 justify-center">
             {moments.map((moment) => (
               <li
