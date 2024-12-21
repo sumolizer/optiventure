@@ -34,15 +34,19 @@ const CommentsList = ({ moments }) => {
                 style={{
                   flex: "0 1 calc(20% - 1rem)", // Makes 5 cards per row
                   maxWidth: "calc(20% - 1rem)",
+                  minHeight: "20px",
                 }}
               >
+                <h6 className="text-xs  text-slate-600 rounded-md p-1 inline-block mt-0">
+                  {new Date(moment.timestamp).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                  })}
+                </h6>
                 <div>{moment.opinion} </div>
-                <h1 className="text-xs bg-green-600 text-white rounded-md p-1 inline-block mt-2">
-                  {moment.timestamp}
-                </h1>
-                <h3 className="inline-block text-xs bg-yellow-400 text-black mt-2 py-1 px-1 rounded-xl">
-                  {moment.username}
-                </h3>
+
+                <h3 className="btnsign">{moment.username}</h3>
                 <button>👍{moment.votes}</button>
                 <button>👎</button>
               </li>
@@ -51,7 +55,12 @@ const CommentsList = ({ moments }) => {
         </div>
       </div>
       {showCreateModal && (
-        <CreateNoteModal onClose={toggleCreateModal} kind="Comment" />
+        <CreateNoteModal
+          onClose={toggleCreateModal}
+          kind="Comment"
+          title="Whats on your mind ?"
+          body="Other user can benefit from your thoughts "
+        />
       )}
     </div>
   );

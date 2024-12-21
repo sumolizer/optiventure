@@ -61,6 +61,20 @@ app.patch("/api/notes/:id", async (req, res) => {
     res.status(400).json({ success: false, error: err.message });
   }
 });
+app.put("/api/notes/:id", async (req, res) => {
+  const { id } = req.params;
+  const { noteText } = req.body;
+  try {
+    const updatedNote = await Note.findByIdAndUpdate(
+      id,
+      { noteText },
+      { new: true }
+    );
+    res.status(200).json({ success: true, note: updatedNote });
+  } catch (err) {
+    res.status(400).json({ success: false, error: err.message });
+  }
+});
 
 app.delete("/api/notes/:id", async (req, res) => {
   const { id } = req.params;

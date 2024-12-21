@@ -1,15 +1,19 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
-function CreateNoteModal({ onClose, onSave, kind }) {
-  const [noteText, setNoteText] = useState(""); // Local state to hold the note text
+// let it need a title a body a kind
+
+function CreateNoteModal({ onClose, onSave, title, body, kind, value }) {
+  const [noteText, setNoteText] = useState(value); // Local state to hold the note text
 
   const handleSave = () => {
-    // Call onSave with the note text
+    if (!noteText.trim()) {
+      alert("Note cannot be empty!");
+      return;
+    }
     onSave(noteText);
-    setNoteText(""); // Reset the note text
+    setNoteText("");
   };
-
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 z-50">
       <motion.div
@@ -21,7 +25,7 @@ function CreateNoteModal({ onClose, onSave, kind }) {
       >
         <div className="create">
           <div className="flex justify-between items-center mb-4">
-            <h1 className="text-2xl align-middle">Create a {kind}</h1>
+            <h1 className="text-2xl align-middle">{title}</h1>
             <button
               onClick={onClose}
               className="text-gray-700 dark:text-gray-300 hover:text-red-500"
@@ -30,12 +34,12 @@ function CreateNoteModal({ onClose, onSave, kind }) {
             </button>
           </div>
           <textarea
-            placeholder="Write something here"
-            rows={5}
-            cols={16}
+            placeholder={body}
+            rows={6}
+            cols={55}
             className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
             value={noteText}
-            onChange={(e) => setNoteText(e.target.value)} // Update the noteText state
+            onChange={(e) => setNoteText(e.target.value)}
           ></textarea>
           <div className="mt-4 flex justify-end space-x-2">
             <button onClick={handleSave} className="btnsign">

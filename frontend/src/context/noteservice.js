@@ -44,21 +44,23 @@ export const fetchNotes = async (userId) => {
   }
 };
 
-export const editNote = async (noteId, noteText) => {
+export const updateNote = async (noteId, updatedNote) => {
   try {
     const response = await fetch(`http://localhost:7777/api/notes/${noteId}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ noteText }),
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedNote),
     });
 
     if (!response.ok) {
-      throw new Error("Failed to edit note");
+      throw new Error("Failed to update note");
     }
 
-    return await response.json(); // Return updated note
+    return await response.json();
   } catch (error) {
-    console.error("Error editing note:", error.message);
+    console.error("Error updating note:", error);
     throw error;
   }
 };
