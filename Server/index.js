@@ -86,11 +86,11 @@ app.delete("/api/notes/:id", async (req, res) => {
   }
 });
 
-// Routes for Forum Comments
 app.post("/api/forum", async (req, res) => {
-  const { userId, commentText } = req.body;
+  const { userId, username, commentText } = req.body;
   try {
-    const newComment = new Comment({ userId, commentText });
+    const newComment = new Comment({ userId, username, commentText });
+    console.log(newComment);
     await newComment.save();
     res.status(201).json({ success: true, comment: newComment });
   } catch (err) {
@@ -133,7 +133,6 @@ app.delete("/api/forum/:id", async (req, res) => {
   }
 });
 
-// Start server
 app.listen(7777, () => {
   console.log("Server is running on port 5175...");
 });

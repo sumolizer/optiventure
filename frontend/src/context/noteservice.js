@@ -1,4 +1,3 @@
-// Example of how the createNote function could look
 export const createNote = async (userId, noteText) => {
   try {
     const response = await fetch("http://localhost:7777/api/notes", {
