@@ -26,7 +26,7 @@ const NotesList = () => {
           <ul className="flex flex-wrap gap-4 justify-center">
             {notes.map((note) => (
               <li
-                key={note._id}
+                key={`note-${note._id}`}
                 className="text-center bg-[#0a2540] text-white font-bold p-3 rounded-lg shadow-md flex flex-col justify-between mt-4 cursor-pointer"
                 style={{
                   flex: "0 1 calc(20% - 1rem)",

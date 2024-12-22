@@ -34,6 +34,7 @@ function Login() {
           placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
           className="signinp"
+          min={4}
         />
         <br />
         <label className="signlbl" htmlFor="password">
@@ -46,6 +47,8 @@ function Login() {
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
           className="signinp"
+          min={8}
+          max={12}
         />
         <br />
         <button className="btnsign" type="submit">

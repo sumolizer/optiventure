@@ -39,13 +39,35 @@ app.post("/api/notes", async (req, res) => {
 });
 
 app.get("/api/notes", async (req, res) => {
+  const { userId } = req.query; // Get userId from query params
+
+  if (!userId) {
+    return res.status(400).json({ message: "User ID is required" });
+  }
+
   try {
-    const notes = await Note.find();
+    // Filter notes by userId
+    const notes = await Note.find({ userId });
     res.status(200).json(notes);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error fetching notes", error: error.message });
   }
 });
+const getNotes = async (req, res) => {
+  const { userId } = req.query;
+  if (!userId) {
+    return res.status(400).json({ message: "User ID is required" });
+  }
+
+  try {
+    const notes = await Note.find({ userId }); // Ensure filtering by userId
+    res.status(200).json(notes);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching notes" });
+  }
+};
 
 app.patch("/api/notes/:id", async (req, res) => {
   const { id } = req.params;

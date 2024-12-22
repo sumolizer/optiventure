@@ -1,9 +1,16 @@
 import { useAuth } from "../context/AuthContext";
 import CreateNoteModal from "./createnote";
 import { useForumLogic } from "../context/forumuihelper";
-
+import { useState } from "react";
 const CommentsList = () => {
   const { user } = useAuth();
+  const [votedComments, setVotedComments] = useState({});
+  const handleClick = (commentId, type) => {
+    if (!votedComments[commentId]) {
+      handleVote(commentId, type);
+      setVotedComments((prev) => ({ ...prev, [commentId]: true }));
+    }
+  };
   const {
     comments,
     showCreateModal,
@@ -69,14 +76,24 @@ const CommentsList = () => {
                 <div>{comment.commentText}</div>
                 <div className="flex justify-center gap-2 mt-2">
                   <button
-                    onClick={() => handleVote(comment._id, "upvote")}
-                    className="hover:bg-gray-700 p-1 rounded"
+                    onClick={() => handleClick(comment._id, "upvote")}
+                    className={`hover:bg-gray-700 p-1 rounded ${
+                      votedComments[comment._id]
+                        ? "opacity-50 cursor-not-allowed"
+                        : ""
+                    }`}
+                    disabled={votedComments[comment._id]}
                   >
-                    👍 {comment.votes > 0 ? comment.votes : 0}
+                    👍 {comment.votes}
                   </button>
                   <button
-                    onClick={() => handleVote(comment._id, "downvote")}
-                    className="hover:bg-gray-700 p-1 rounded"
+                    onClick={() => handleClick(comment._id, "downvote")}
+                    className={`hover:bg-gray-700 p-1 rounded ${
+                      votedComments[comment._id]
+                        ? "opacity-50 cursor-not-allowed"
+                        : ""
+                    }`}
+                    disabled={votedComments[comment._id]}
                   >
                     👎
                   </button>

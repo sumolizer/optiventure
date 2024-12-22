@@ -2,12 +2,12 @@ import { useState } from "react";
 import { auth } from "../firebase";
 import "../assets/Account.css";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { redirect } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 function Signup() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
@@ -18,10 +18,10 @@ function Signup() {
       );
       await updateProfile(userCredential.user, { displayName: username });
       alert("Signup successful!");
+      navigate("/");
     } catch (error) {
       alert(error.message);
     }
-    return <redirect to="/" />;
   };
 
   return (
@@ -41,6 +41,9 @@ function Signup() {
           placeholder="Username"
           onChange={(e) => setUsername(e.target.value)}
           className="signinp"
+          required
+          minLength={5}
+          maxLength={12}
         />
         <br />
         <label className="signlbl" htmlFor="Username">
@@ -53,6 +56,7 @@ function Signup() {
           placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
           className="signinp"
+          required
         />
         <br />
         <label className="signlbl" htmlFor="password">
@@ -65,6 +69,9 @@ function Signup() {
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
           className="signinp"
+          required
+          minLength={8}
+          maxLength={12}
         />
         <br />
         <button className="btnsign text-xl" type="submit">
