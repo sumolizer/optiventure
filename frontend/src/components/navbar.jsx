@@ -9,8 +9,10 @@ export function Navbar() {
     <nav
       className="bg-blue-900 p-3 flex justify-between items-center w-full rounded border-blue-900"
       style={{
-        backgroundImage: "url(./public/navbar.png)",
+        backgroundImage: "url(./public/newnavbar.png)",
         backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
       {/* Left Side: Logo */}
@@ -64,16 +66,19 @@ export function Navbar() {
       <div className="flex space-x-4 items-center">
         {user ? (
           <>
-            <span className="text-green-500">{user.displayName}</span>
-            <NavLink to="/profile" className="btneuro py-1 px-3 rounded-xl">
-              Profile
-            </NavLink>
+            <img src="./public/mascot.png" className="h-10 w-10 rounded-full" />
+            <span className="btngreen">
+              {user.displayName}
+              <NavLink
+                to="/profile"
+                className="btneuro text-black py-1 px-3 rounded-xl"
+              >
+                Profile
+              </NavLink>
+            </span>
           </>
         ) : (
-          <NavLink
-            to="/login"
-            className="bg-red-500 text-white py-1 px-3 rounded-xl"
-          >
+          <NavLink to="/login" className="btnred">
             Not signed in
           </NavLink>
         )}

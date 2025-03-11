@@ -154,6 +154,20 @@ app.delete("/api/forum/:id", async (req, res) => {
     res.status(400).json({ success: false, error: err.message });
   }
 });
+app.delete("/api/delete-user-data/:userId", async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    await Note.deleteMany({ userId });
+    await Comment.deleteMany({ userId });
+
+    res
+      .status(200)
+      .json({ success: true, message: "User data deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
 
 app.listen(7777, () => {
   console.log("Server is running on port 5175...");

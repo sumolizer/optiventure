@@ -8,12 +8,44 @@
   align-self: center;
   border: 1px solid transparent;
   display: inline-block;
-  margin: 1px;
   font-size: 15px;
+  padding: 6px;
+  margin-left: 6px;
+  font-family: "UEFA Euro", Arial, sans-serif;
+  font-weight: 422;
+  filter: brightness(1);
+  transition: color 0.5s;
+}
+.btnred {
+  border-radius: 22px;
+  color: aliceblue;
+  background-color: #ff0100;
+  box-shadow: none;
+  align-self: center;
+  border: 1px solid transparent;
+  display: inline-block;
+  margin: 1px;
+  font-size: 19px;
   padding: 6px;
   font-family: "UEFA Euro", Arial, sans-serif;
   font-weight: 422;
-  filter: brightness(0.79);
+  filter: brightness(1);
+  transition: color 0.5s;
+}
+.btngreen {
+  border-radius: 22px;
+  color: white;
+  background-color: #0b9e48;
+  box-shadow: none;
+  align-self: center;
+  border: 1px solid transparent;
+  display: inline-block;
+  margin: 1px;
+  padding-left: 8px;
+  font-size: 14px;
+  font-family: "UEFA Euro", Arial, sans-serif;
+  font-weight: 422;
+  filter: brightness(0.8);
   transition: color 0.5s;
 }
 .proftext {

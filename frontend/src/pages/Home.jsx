@@ -16,19 +16,14 @@ function Home() {
           <br /> You can still browse the Forum
         </p>
       ) : (
-        <div className="mapscontainer flex">
+        <div className="mapscontainer">
           {/* Left Side: Google Maps */}
-          <div className="flex-1 p-4">
-            <img
-              className="rounded-xl"
-              src="../public/mapsplaceholder.png"
-              alt=""
-            />
-            {/* < Maps /> */}
+          <div className="maps">
+            <Maps />
           </div>
 
           {/* Right Side: Forum */}
-          <div className="flex-1 p-4">
+          <div className="forum">
             <Forum />
           </div>
         </div>

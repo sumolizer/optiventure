@@ -75,34 +75,48 @@ a {
 .mapscontainer {
   position: absolute;
   transform: translate(-50%, -50%);
-
   top: 50%;
   left: 50%;
+  width: 80%; /* Adjust width as needed */
+  height: 60vh; /* Keeps a balanced aspect ratio */
+  display: flex;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0);
-  border-radius: 16px;
-  padding: 5px;
-  text-align: center;
+  padding: 10px;
   z-index: 1;
+}
+.mapscontainer .maps {
+  flex: 1;
+  border-radius: 16px; /* Makes it rounded */
+  overflow: hidden; /* Prevents overflow */
+}
+
+/* Forum Styling (Right Side) */
+.mapscontainer .forum {
+  flex: 1;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 8px;
 }
 .profilecontainer {
+  position: absolute;
   top: 50%;
   left: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0);
+  transform: translate(-50%, -50%);
+  width: 80vw; /* Adjust width as needed */
+  height: 60vh; /* Adjust height as needed */
+  background-image: url(./public/container.png);
+  background-size: cover; /* Ensures the whole image is shown */
+  background-repeat: no-repeat;
+  background-position: center;
   border-radius: 16px;
   padding: 5px;
-  text-align: center;
-  z-index: 1;
 }
+
 .notescontainer {
   text-align: center;
   margin: 8px;
