@@ -1,4 +1,12 @@
-function LocForum() {
+import React, { useState } from "react";
+function LocForum({ onSearch }) {
+  const [location, setLocation] = useState("");
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (!location) return;
+    onSearch(location); // Send location to Home.jsx
+  };
   return (
     <div className="flex flex-col items-center text-center p-6">
       <h1 className="text-2xl font-bold mb-6">Start Your Venture!</h1>
@@ -11,7 +19,9 @@ function LocForum() {
         </label>
         <input
           type="text"
-          placeholder="Coordinates"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          placeholder="Enter Location"
           className="signinp w-80 p-2 rounded border"
         />
 
@@ -30,7 +40,7 @@ function LocForum() {
         <h6 className=" text-white text-sm">
           *Only avalaible in Islamabad Capital Territory as of now
         </h6>
-        <button className="btnsign w-40 p-2 rounded" type="submit">
+        <button className="btnsign w-40 p-2 rounded" onClick={handleSearch}>
           Find Location
         </button>
         <br />

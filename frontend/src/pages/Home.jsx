@@ -2,9 +2,17 @@ import Maps from "../components/maps";
 import Forum from "../components/locationforum";
 import { Navbar } from "../components/Navbar";
 import { useAuth } from "../context/AuthContext";
+import { useState } from "react";
+import LocForum from "../components/locationforum";
 
 function Home() {
   const { user } = useAuth();
+  const [searchLocation, setSearchLocation] = useState(null);
+
+  // Function to update location when Forum's search button is clicked
+  const handleSearchLocation = (location) => {
+    setSearchLocation(location);
+  };
 
   return (
     <>
@@ -19,12 +27,12 @@ function Home() {
         <div className="mapscontainer">
           {/* Left Side: Google Maps */}
           <div className="maps">
-            <Maps />
+            <Maps searchLocation={searchLocation} />
           </div>
 
           {/* Right Side: Forum */}
           <div className="forum">
-            <Forum />
+            <LocForum onSearch={handleSearchLocation} />
           </div>
         </div>
       )}
