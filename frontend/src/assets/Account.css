@@ -1,5 +1,5 @@
 body {
-  background-color: #16222a;
+  background-color: #1f2369;
   font-family: "Segoe UI";
   margin: 0;
   padding: 0;
@@ -42,7 +42,7 @@ h4 {
   font-weight: 422;
 }
 
-a {
+.acc {
   border-radius: 22px;
   background-color: #f9bf4b;
   box-shadow: none;

@@ -8,10 +8,13 @@ const Comment = require("./models/Forum");
 const cors = require("cors");
 app.use(cors());
 mongoose
-  .connect("mongodb://127.0.0.1:27017/optiventure", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    "mongodb+srv://eurofan3148:LZom31qSQiyA8iyJ@cluster0.pxiuz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/optiventure",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Could not connect to MongoDB...", err));
 

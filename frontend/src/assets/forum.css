@@ -41,7 +41,7 @@ h4 {
   font-weight: 422;
 }
 
-a {
+.lightmodea {
   border-radius: 22px;
   background-color: #f9bf4b;
   box-shadow: none;
@@ -143,7 +143,7 @@ li {
   font-size: "x-large";
 }
 
-.btn {
+.btnforum {
   border-radius: 22px;
   background-color: #f9bf4b;
   box-shadow: none;

@@ -4,6 +4,7 @@ import { Navbar } from "../components/Navbar";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 import LocForum from "../components/locationforum";
+import { Crynavbar } from "../components/crynavbar";
 
 function Home() {
   const { user } = useAuth();
@@ -16,7 +17,7 @@ function Home() {
 
   return (
     <>
-      <Navbar />
+      <Crynavbar />
       {!user ? (
         <p className="Signlog bg-red-700 text-yellow-50 rounded-full inline-block p-1 px-2 mx-9">
           Please <a href="/login">Login</a> to continue.

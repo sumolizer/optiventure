@@ -58,13 +58,6 @@
   font-weight: 422;
   border-radius: 22px;
 }
-span {
-  font-family: "UEFA Euro", Arial, sans-serif;
-  display: inline-block;
-  border-radius: 9px;
-  color: wheat;
-  font-weight: 422;
-}
 
 /* Active link styles */
 .active-link {
@@ -73,4 +66,29 @@ span {
   color: wheat;
   zoom: 1.3;
   filter: brightness(1);
+}
+
+.nv-active {
+  background-color: #2eb086;
+  color: black;
+  font-weight: 600; /* equivalent to font-semibold */
+  padding: 0.5rem 0.75rem; /* py-2 px-3 */
+  border-radius: 9999px; /* rounded-full */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+  font-family: "UEFA Euro", Arial, sans-serif;
+}
+
+.nv-inactive {
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: #15263b;
+  padding: 0.5rem 0.75rem; /* py-1 px-3 */
+  border-radius: 9999px; /* rounded-full */
+  transition: all 0.2s ease-in-out;
+  font-family: "UEFA Euro", Arial, sans-serif;
+}
+
+.nv-inactive:hover {
+  color: #6995ca;
+  border-color: #2eb086;
 }
