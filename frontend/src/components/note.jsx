@@ -19,15 +19,14 @@ const NotesList = () => {
     <div className="relative">
       <div className={`${showCreateModal ? "blur-md" : ""}`}>
         <div className="notescontainer p-4">
-          <h1 className="text-2xl p-1.2 font-extrabold">🗒️ Notes </h1>
-          <button onClick={openCreateModal} className="btneuro">
-            +
+          <button onClick={openCreateModal} className="nv-active">
+            Create a Note
           </button>
           <ul className="flex flex-wrap gap-4 justify-center">
             {notes.map((note) => (
               <li
                 key={`note-${note._id}`}
-                className="text-center bg-[#0a2540] text-white font-bold p-3 rounded-lg shadow-md flex flex-col justify-between mt-4 cursor-pointer"
+                className="text-center darkcontainer  text-white font-bold p-3 rounded-lg shadow-md flex flex-col justify-between mt-4 cursor-pointer"
                 style={{
                   flex: "0 1 calc(20% - 1rem)",
                   maxWidth: "calc(20% - 1rem)",

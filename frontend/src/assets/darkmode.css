@@ -67,8 +67,10 @@
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background-color: #15263b;
-  padding: 0.5rem 0.75rem; /* py-1 px-3 */
-  border-radius: 9px; /* rounded-full */
+  padding-left: 45px; /* py-1 px-3 */
+  padding-right: 45px;
+  padding-bottom: 15px; /* py-1 px-3 */
+  border-radius: 14px; /* rounded-full */
   transition: all 0.2s ease-in-out;
   font-family: "UEFA Euro", Arial, sans-serif;
 }

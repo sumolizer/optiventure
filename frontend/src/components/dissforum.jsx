@@ -34,7 +34,7 @@ const CommentsList = () => {
       <div className={`${showCreateModal ? "blur-md" : ""}`}>
         <div className="notescontainer p-4">
           <div className="flex justify-between items-center mb-5 mx-4">
-            <h1 className="">🗒️ Discussion Forum</h1>
+            <h1 className="nv-active">🗒️ Discussion Forum</h1>
             {user && (
               <button onClick={toggleUserComments} className="hsmall">
                 {showUserCommentsOnly
@@ -45,13 +45,13 @@ const CommentsList = () => {
           </div>
 
           {!user ? (
-            <p className="btnsign bg-red-700 text-yellow-50 rounded-full inline-block p-1 px-2 mx-9 align-middle">
+            <p className="nv-active bg-red-700 text-yellow-50 rounded-full inline-block p-1 px-2 mx-9 align-middle">
               Please <a href="/login">Login</a> to post your thoughts.
             </p>
           ) : (
             <button
               onClick={() => setShowCreateModal(true)}
-              className="btnsign"
+              className="nv-active"
             >
               + Share your thoughts with the community!
             </button>
@@ -59,7 +59,7 @@ const CommentsList = () => {
 
           <div className="flex gap-4 justify-between">
             {/* Categories on the left */}
-            <div className="w-1/4 bg-gray-200 p-4 rounded-lg">
+            <div className="w-1/4 darkcontainer p-4 rounded-lg">
               <h3 className="font-bold text-lg mb-4">Categories</h3>
               <ul>
                 <li className="mb-2">Business</li>

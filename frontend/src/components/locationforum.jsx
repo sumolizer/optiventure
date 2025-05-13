@@ -100,19 +100,20 @@ function LocForum({
   if (analysisMode) {
     return (
       <div className="flex flex-col items-center text-center p-6 text-white">
-        <h2 className="text-2xl font-bold mb-4 optifont greenish">
+        <h2 className="text-xl font-bold mb-2 optifont nv-active">
           Analysis Report
         </h2>
-        <div className="darkcontainer">
+
+        <div className="darkcontainer px-11">
           {top5.map((item, index) => (
             <div
               key={index}
               className="optifont capitalize bg-gray-800 text-white rounded-lg p-2 my-1 shadow-lg"
             >
-              <h5 className="text-lg font-semibold mb-2 capitalize">
+              <h5 className="text-base font-semibold capitalize">
                 {index + 1}.{" "}
                 {capitalizeFirstWord(item.business_type.replace("_", " "))}
-                <p className="text-sm font-light">
+                <p className="text-xs font-light">
                   Success Probability:{" "}
                   <span className="font-semibold">
                     {item.success_probability.toFixed(2)}%
@@ -121,14 +122,11 @@ function LocForum({
               </h5>
             </div>
           ))}
+          <button className="nv-active"> Generate Report </button>
+          <button className=" ml-4 rounded nv-inactive" onClick={handleBack}>
+            Back
+          </button>
         </div>
-
-        <button
-          className="mt-6 p-2 w-40 rounded nv-inactive"
-          onClick={handleBack}
-        >
-          Back
-        </button>
       </div>
     );
   }
@@ -136,13 +134,13 @@ function LocForum({
   // Default Form UI
   return (
     <div className="flex flex-col items-center text-center transition-all duration-300 overflow-hidden">
-      <h2 className="text-2xl font-bold mb-4 optifont greenish">
+      <h2 className="text-2xl font-bold mb-4 optifont nv-active">
         Start Your Venture!
       </h2>
 
       <form className="flex flex-col items-center space-y-4">
         <label className="signlbl" htmlFor="location">
-          Enter Location
+          Enter Location ( Or choose on the map)
         </label>
         <input
           type="text"
@@ -161,8 +159,8 @@ function LocForum({
           Find Location
         </button>
       </form>
-
-      <button className="nv-active text-2xl text-white" onClick={handleAnalyse}>
+      <br />
+      <button className="greenish text-2xl text-white" onClick={handleAnalyse}>
         Analyse
       </button>
 
