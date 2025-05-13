@@ -16,44 +16,49 @@ function Profile() {
   const navigate = useNavigate();
   const [username, setUsername] = useState(auth.currentUser?.displayName || "");
   const [password, setPassword] = useState("");
-  const [city, setCity] = useState("");
+  const [mode, setMode] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  // 🔹 Update Username
-  const handleUpdateUsername = async () => {
+  // 🔹 Unified Save Handler
+  const handleSaveAll = async () => {
     try {
-      await updateProfile(auth.currentUser, { displayName: username });
-      alert("Username updated!");
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+      const user = auth.currentUser;
+      const updates = [];
 
-  // 🔹 Update Password (Requires Re-authentication)
-  const handleUpdatePassword = async () => {
-    try {
-      const credential = EmailAuthProvider.credential(
-        auth.currentUser.email,
-        confirmPassword // Old password needed
-      );
-      await reauthenticateWithCredential(auth.currentUser, credential);
-      await updatePassword(auth.currentUser, password);
-      alert("Password updated!");
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+      // 🔹 Username update if changed
+      if (username && username !== user.displayName) {
+        updates.push(updateProfile(user, { displayName: username }));
+      }
 
-  // 🔹 Update City (Store in Firestore)
-  const handleUpdateCity = async () => {
-    try {
-      await axios.post("/api/update-city", {
-        userId: auth.currentUser.uid,
-        city: city,
-      });
-      alert("City updated!");
+      // 🔹 Password update if both provided and not empty
+      if (password && confirmPassword) {
+        const credential = EmailAuthProvider.credential(
+          user.email,
+          confirmPassword
+        );
+        await reauthenticateWithCredential(user, credential);
+        updates.push(updatePassword(user, password));
+      }
+
+      // 🔹 Mode update if selected
+      if (mode) {
+        updates.push(
+          axios.post("/api/updatemode", {
+            userId: user.uid,
+            uimode: mode,
+          })
+        );
+      }
+
+      if (updates.length === 0) {
+        alert("No changes detected.");
+        return;
+      }
+
+      await Promise.all(updates);
+      alert("Only modified fields have been saved successfully!");
     } catch (error) {
-      alert(error.message);
+      alert("Error: " + error.message);
     }
   };
 
@@ -73,9 +78,7 @@ function Profile() {
       );
 
       await reauthenticateWithCredential(auth.currentUser, credential);
-
       await axios.delete(`/api/delete-user-data/${userId}`);
-
       await deleteUser(auth.currentUser);
 
       alert("Your account and all associated data have been deleted.");
@@ -88,70 +91,77 @@ function Profile() {
   return (
     <>
       <Navbar />
-      <div className="profilecontainer text-center bg-[#0a2540] font-bold p-3 rounded-lg shadow-md p-5">
-        <h1 className="text-2xl mb-4">Your Profile</h1>
-        <p className="signlbl">Email: {auth.currentUser?.email}</p>
+      <div className="profilecontainer text-center bg-[#0a2540] font-bold p-3 rounded-lg shadow-md">
+        <h1 className="text-2xl mb-6">Your Profile</h1>
+        <p className="signlbl mb-4">Email: {auth.currentUser?.email}</p>
 
-        {/* 🔹 Edit Username */}
-        <div className="mb-4">
-          <input
-            className="signinp"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Update Username"
-          />
-          <button className="btneuro ml-2" onClick={handleUpdateUsername}>
-            Save Changes
-          </button>
-        </div>
+        <div className="grid gap-6 text-left max-w-xl mx-auto">
+          {/* Username */}
+          <div className="flex justify-between items-center">
+            <label className="w-1/2 optifont">Username</label>
+            <input
+              className="signinp w-1/2"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Update Username"
+            />
+          </div>
 
-        {/* 🔹 Change Password */}
-        <div className="mb-4">
-          <input
-            className="signinp ml-3"
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="Enter Old Password"
-          />
-          <input
-            className="signinp ml-3"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="New Password"
-          />
-          <button className="btneuro ml-2" onClick={handleUpdatePassword}>
-            Change Password
-          </button>
-        </div>
+          {/* Old Password */}
+          <div className="flex justify-between items-center">
+            <label className="w-1/2 optifont">Old Password</label>
+            <input
+              className="signinp w-1/2"
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Enter Old Password"
+            />
+          </div>
 
-        {/* 🔹 Change City */}
-        <div className="mb-4">
-          <select
-            className="signinp p-2 text-black w-30"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-          >
-            <option value="Islamabad">Islamabad</option>
-          </select>
-          <button className="btneuro ml-12" onClick={handleUpdateCity}>
-            Save Changes
-          </button>
-        </div>
+          {/* New Password */}
+          <div className="flex justify-between items-center">
+            <label className="w-1/2 optifont">New Password</label>
+            <input
+              className="signinp w-1/2"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="New Password"
+            />
+          </div>
 
-        {/* 🔹 Delete Notes & Forum Comments */}
-        <div className="m-4">
-          <h3> </h3>
-          <button className="btnred" onClick={handleDeleteAccount}>
-            Delete My Account
-          </button>
+          {/* Mode Selector */}
+          <div className="flex justify-between items-center">
+            <label className="w-1/2 optifont">UI Mode</label>
+            <select
+              className="signinp w-1/2 text-black"
+              value={mode}
+              onChange={(e) => setMode(e.target.value)}
+            >
+              <option value="dark">Dark Mode</option>
+              <option value="bright">Bright Punchy Vivid Mode</option>
+            </select>
+          </div>
+
+          {/* 🔘 Unified Save Button */}
+          <div className="text-center">
+            <button className="btneuro mt-4" onClick={handleSaveAll}>
+              Save All Changes
+            </button>
+          </div>
+
+          {/* Delete + Logout */}
+          <div className="text-center mt-6 space-x-4">
+            <button className="btnred" onClick={handleDeleteAccount}>
+              Delete My Account
+            </button>
+            <button className="btnred" onClick={() => signOut(auth)}>
+              Logout
+            </button>
+          </div>
         </div>
-        {/* 🔹 Logout */}
-        <button className="btnred" onClick={() => signOut(auth)}>
-          Logout
-        </button>
       </div>
     </>
   );

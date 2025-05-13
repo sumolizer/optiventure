@@ -22,7 +22,7 @@ export function Navbar() {
           alt="OptiVenture Logo"
           className="h-13 w-10 rounded-full"
         />
-        <span className="text-white text-2xl ">PTIVENTURE</span>
+        <span className="text-white text-2xl optifont">PTIVENTURE</span>
       </div>
 
       {/* Middle: Navigation Links */}

@@ -1,4 +1,5 @@
 import "./assets/forum.css";
+import "./assets/darkmode.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Suspense } from "react";
 import Home from "./pages/Home";

@@ -1,17 +1,14 @@
 import { Navbar } from "../components/Navbar";
+import { Crynavbar } from "../components/crynavbar";
 
 function Reports() {
   return (
     <>
-      <Navbar />
+      <Crynavbar />
       <div className="Signlog  m-5">
         {" "}
-        <h1> Generated Reports will be kept here</h1>
-        <br />{" "}
-        <p className="bg-red-700  text-yellow-50 rounded-full inline-block p-1 px-2 mx-9">
-          {" "}
-          No Reports Generated Yet !
-        </p>
+        <h1 className=" nv-active"> Generated Reports will be kept here</h1>
+        <br /> <p className="optifont "> No Reports Generated Yet !</p>
       </div>
     </>
   );

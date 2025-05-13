@@ -7,6 +7,7 @@ export default {
     "./src/components/createnote.jsx",
     "./src/components/dissforum.jsx",
     "./src/components/crynavbar.jsx",
+    "./src/components/moduleoverlay.jsx",
     "./src/pages/Login.jsx",
     "./src/pages/Signup.jsx",
     "./src/pages/Reports.jsx",

@@ -1,5 +1,5 @@
 body {
-  background-color: #1f2369;
+  background-color: #1a1c44;
   font-family: "Segoe UI";
   margin: 0;
   padding: 0;
@@ -58,9 +58,6 @@ h4 {
   /* Setting font weight */
 }
 .Signlog {
-  position: absolute;
-  left: 34%;
-  top: 15%;
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
   background-color: rgba(17, 25, 40, 0.75);
@@ -85,33 +82,4 @@ h4 {
   padding: 8px;
   border-right-color: transparent;
   transition: size 0.7s;
-}
-
-.btnsign {
-  font-size: 16px;
-  border-radius: 22px;
-  background-color: #1f500d;
-  box-shadow: none;
-  align-self: center;
-  color: aliceblue;
-  border: 1px solid transparent;
-  display: inline-block;
-  margin: 5px;
-  padding: 8px;
-  font-family: "UEFA Euro", Arial, sans-serif;
-  font-weight: 42;
-}
-.hsmall {
-  font-size: 10px;
-  border-radius: 22px;
-  background-color: #1f500d;
-  box-shadow: none;
-  align-self: center;
-  color: aliceblue;
-  border: 1px solid transparent;
-  display: inline-block;
-  margin: 3px;
-  padding: 6px;
-  font-family: "UEFA Euro", Arial, sans-serif;
-  font-weight: 42;
 }

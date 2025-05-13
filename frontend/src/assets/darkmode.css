@@ -1,0 +1,78 @@
+@tailwind components;
+@tailwind utilities;
+@tailwind base;
+.nv-active {
+  background-color: #2eb086;
+  color: black;
+  font-weight: 600; /* equivalent to font-semibold */
+  padding: 0.5rem 0.75rem; /* py-2 px-3 */
+  border-radius: 9999px; /* rounded-full */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+  font-family: "UEFA Euro", Arial, sans-serif;
+}
+
+.nv-inactive {
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: #15263b;
+  padding: 0.5rem 0.75rem; /* py-1 px-3 */
+  border-radius: 9999px; /* rounded-full */
+  transition: all 0.2s ease-in-out;
+  font-family: "UEFA Euro", Arial, sans-serif;
+}
+
+.nv-inactive:hover {
+  color: #6995ca;
+  border-color: #2eb086;
+}
+
+.optifont {
+  font-family: "UEFA Euro", Arial, sans-serif;
+}
+
+.mapscontainerdark {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  width: 80%; /* Adjust width as needed */
+  height: 60vh; /* Keeps a balanced aspect ratio */
+  display: flex;
+  background: #15263b;
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0);
+  padding: 10px;
+  z-index: 1;
+}
+.greenish {
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: #00ba5d;
+  padding: 0.5rem 0.75rem; /* py-1 px-3 */
+  border-radius: 9999px; /* rounded-full */
+  transition: all 0.2s ease-in-out;
+  font-family: "UEFA Euro", Arial, sans-serif;
+}
+.darkblueish {
+  color: #041851;
+}
+.blueish {
+  color: #143cdb;
+}
+
+.darkcontainer {
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: #15263b;
+  padding: 0.5rem 0.75rem; /* py-1 px-3 */
+  border-radius: 9px; /* rounded-full */
+  transition: all 0.2s ease-in-out;
+  font-family: "UEFA Euro", Arial, sans-serif;
+}
+.darkcontainer:hover {
+  color: #6995ca;
+  border-color: #2eb086;
+}

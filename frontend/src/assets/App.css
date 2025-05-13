@@ -1,5 +1,6 @@
 body {
-  background-color: #16222a;
+  /* background-color: #16222a; */
+  background-color: #1c423a;
 }
 /* Page fade-in animation */
 @keyframes fadeIn {

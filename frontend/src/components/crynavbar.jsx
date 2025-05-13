@@ -14,7 +14,13 @@ export function Crynavbar() {
           alt="OptiVenture Logo"
           className="h-12 w-10 rounded-full"
         />
-        <span className="text-xl font-bold">PTIVENTURE</span>
+        <span
+          className="text-xl font-bold optifont
+        
+        "
+        >
+          PTIVENTURE
+        </span>
       </div>
 
       {/* Nav Links */}
