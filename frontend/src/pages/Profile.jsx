@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { useState } from "react";
 import axios from "axios";
-
+import { Crynavbar } from "../components/crynavbar";
 function Profile() {
   const navigate = useNavigate();
   const [username, setUsername] = useState(auth.currentUser?.displayName || "");
@@ -90,9 +90,9 @@ function Profile() {
 
   return (
     <>
-      <Navbar />
-      <div className="profilecontainer text-center bg-[#0a2540] font-bold p-3 rounded-lg shadow-md">
-        <h1 className="text-2xl mb-6">Your Profile</h1>
+      <Crynavbar />
+      <div className="profilecontainer text-center font-bold p-3 mb-5 rounded-lg shadow-md">
+        <h3 className="text-2xl mb-6 nv-inactive">Your Profile</h3>
         <p className="signlbl mb-4">Email: {auth.currentUser?.email}</p>
 
         <div className="grid gap-6 text-left max-w-xl mx-auto">
@@ -147,7 +147,7 @@ function Profile() {
 
           {/* 🔘 Unified Save Button */}
           <div className="text-center">
-            <button className="btneuro mt-4" onClick={handleSaveAll}>
+            <button className="nv-active mt-4" onClick={handleSaveAll}>
               Save All Changes
             </button>
           </div>
@@ -157,7 +157,7 @@ function Profile() {
             <button className="btnred" onClick={handleDeleteAccount}>
               Delete My Account
             </button>
-            <button className="btnred" onClick={() => signOut(auth)}>
+            <button className="greenish" onClick={() => signOut(auth)}>
               Logout
             </button>
           </div>

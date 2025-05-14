@@ -19,12 +19,17 @@ export const fetchUserComments = async (userId) => {
   }
 };
 
-export const createComment = async (userId, username, commentText) => {
+export const createComment = async (
+  userId,
+  username,
+  commentText,
+  category
+) => {
   try {
     const response = await fetch("http://localhost:7777/api/forum", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId, username, commentText }),
+      body: JSON.stringify({ userId, username, commentText, category }),
     });
     if (!response.ok) throw new Error("Failed to create comment");
     return await response.json();

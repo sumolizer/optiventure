@@ -1,4 +1,11 @@
 body {
+  background: #20206b;
+  background: linear-gradient(
+    90deg,
+    rgba(32, 32, 107, 1) 0%,
+    rgba(29, 29, 51, 1) 35%,
+    rgba(28, 41, 38, 1) 73%
+  );
   font-family: "Segoe UI";
   margin: 0;
   padding: 0;
@@ -29,7 +36,7 @@ body {
   font-weight: 422;
 } */
 
-h4 {
+/* h4 {
   background-color: #046ad0;
   display: inline-block;
   box-shadow: #f9bf4b;
@@ -52,11 +59,11 @@ h4 {
   font-size: 14px;
   padding: 2px;
   /* Increase padding */
-  font-family: "UEFA Euro", Arial, sans-serif;
-  /* Setting font family */
-  font-weight: 422;
-  /* Setting font weight */
-}
+/* font-family: "UEFA Euro", Arial, sans-serif; */
+/* Setting font family */
+/* font-weight: 422; */
+/* Setting font weight */
+/* } */
 .glassmorphic-container {
   position: absolute;
   top: 50%;
@@ -129,10 +136,16 @@ h4 {
   transform: translate(-50%, -50%);
   width: 80vw; /* Adjust width as needed */
   height: 60vh; /* Adjust height as needed */
-  background-image: url(./public/container.png);
-  background-size: cover; /* Ensures the whole image is shown */
-  background-repeat: no-repeat;
-  background-position: center;
+  background: rgba(19, 17, 87, 0);
+  box-shadow: 0 8px 32px 0 rgba(36, 39, 86, 0.37);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  -webkit-backdrop-filter: blur(5px);
+  padding: 10px;
+  z-index: 1;
   border-radius: 16px;
   padding: 5px;
 }
@@ -205,4 +218,108 @@ ul {
   padding: 28px;
   text-align: center;
   margin: 8px;
+}
+/* Add to your CSS file */
+
+/* Container styles */
+.notescontainer {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-top: 2rem;
+}
+
+/* Dark container with glassmorphism */
+.darkcontainer {
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(31, 41, 55, 0.75);
+  border: 1px solid rgba(55, 65, 81, 0.3);
+}
+
+/* Button styles */
+.hsmall {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.nv-active {
+  transition: all 0.2s;
+  font-weight: 600;
+}
+
+/* Custom scrollbar for the categories sidebar */
+.darkcontainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.darkcontainer::-webkit-scrollbar-track {
+  background: rgba(55, 65, 81, 0.3);
+  border-radius: 3px;
+}
+
+.darkcontainer::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.5);
+  border-radius: 3px;
+}
+
+.darkcontainer::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.7);
+}
+
+/* Animation for comment appearance */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.space-y-6 > li {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Hover effects for comment cards */
+.space-y-6 > li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s;
+}
+
+/* Loading and error states */
+.signlog {
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(17, 25, 40, 0.75);
+  border: 1px solid rgba(17, 15, 15, 0.125);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .notescontainer {
+    padding: 1rem;
+  }
+
+  .flex.gap-6 {
+    flex-direction: column;
+  }
+
+  .w-1\\/4,
+  .w-3\\/4 {
+    width: 100%;
+  }
+
+  .darkcontainer {
+    margin-bottom: 1.5rem;
+  }
 }

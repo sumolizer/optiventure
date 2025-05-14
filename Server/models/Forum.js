@@ -9,6 +9,7 @@ const commentSchema = new Schema({
   },
   timestamp: { type: Date, default: Date.now },
   commentText: { type: String, required: true },
+  category: { type: String, required: true },
   votes: { type: Number, default: 0 },
 });
 

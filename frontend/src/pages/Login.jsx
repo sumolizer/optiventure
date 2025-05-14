@@ -7,6 +7,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const { login } = useAuth();
   const navigate = useNavigate();
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -18,51 +19,56 @@ function Login() {
   };
 
   return (
-    <div className="Signlog">
-      <img className="w-20 mx-auto mb-5" src="./public/optiAbstractlogo.png" />
-      <p className="signlbl"> Welcome back </p>
-      <br />
-      <h1>Log in to continue your Venture !</h1>
-      <form onSubmit={handleLogin}>
-        <label className="signlbl" htmlFor="Username">
+    <div className="login-container">
+      <div className="Signlog">
+        <img className="w-20 mx-auto mb-5" src="/optiAbstractlogo.png" />
+        <p className="signlbl"> Welcome back </p>
+        <br />
+        <h1 className="nv-inactive">Log in to continue your Venture !</h1>
+        <br />
+        <form onSubmit={handleLogin}>
+          <label className="signlbl" htmlFor="email">
+            {" "}
+            What was your email address ?
+          </label>
+          <br />
+          <input
+            id="email"
+            type="email"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+            className="signinp"
+            required
+          />
+          <br />
+          <label className="signlbl" htmlFor="password">
+            {" "}
+            Enter your vault password{" "}
+          </label>
+          <br />
+          <input
+            id="password"
+            type="password"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            className="signinp"
+            minLength={8}
+            maxLength={12}
+            required
+          />
+          <br />
+          <br />
+          <button className="nv-active" type="submit">
+            Log in !
+          </button>
+        </form>
+        <br />
+        <label className="signlbl"> Dont have an account yet?</label>
+        <a href="/signup" className="nv-inactive">
           {" "}
-          What was your email address ?
-        </label>
-        <br />
-        <input
-          type="email"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-          className="signinp"
-          min={4}
-        />
-        <br />
-        <label className="signlbl" htmlFor="password">
-          {" "}
-          Enter your vault password{" "}
-        </label>
-        <br />
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-          className="signinp"
-          min={8}
-          max={12}
-        />
-        <br />
-        <button className="btnsign" type="submit">
-          Log in !
-        </button>
-      </form>
-      <label className="signlbl" htmlFor="password">
-        {" "}
-        Dont have an account yet? No worries
-      </label>
-      <a href="/signup" className="">
-        {" "}
-        Create Account
-      </a>
+          Signup
+        </a>
+      </div>
     </div>
   );
 }

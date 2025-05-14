@@ -165,15 +165,6 @@ function LocForum({
       </button>
 
       {/* Debug info */}
-      <div className="mt-4 text-xs text-gray-400">
-        <p>
-          Current Location:{" "}
-          {locationForAnalysis
-            ? `${locationForAnalysis.lat}, ${locationForAnalysis.lng}`
-            : "None"}
-        </p>
-        <p>Trigger Status: {triggerAnalysis ? "True" : "False"}</p>
-      </div>
     </div>
   );
 }

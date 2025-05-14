@@ -112,9 +112,9 @@ app.delete("/api/notes/:id", async (req, res) => {
 });
 
 app.post("/api/forum", async (req, res) => {
-  const { userId, username, commentText } = req.body;
+  const { userId, username, commentText, category } = req.body;
   try {
-    const newComment = new Comment({ userId, username, commentText });
+    const newComment = new Comment({ userId, username, commentText, category });
     console.log(newComment);
     await newComment.save();
     res.status(201).json({ success: true, comment: newComment });

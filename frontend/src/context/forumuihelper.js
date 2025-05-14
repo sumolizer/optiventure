@@ -33,12 +33,13 @@ export const useForumLogic = (user) => {
     loadComments();
   }, [showUserCommentsOnly, user]);
 
-  const handleCreateComment = async (commentText) => {
+  const handleCreateComment = async (commentText, category) => {
     try {
       const result = await createComment(
         user.uid,
         user.displayName,
-        commentText
+        commentText,
+        category
       );
       if (result.success) {
         setComments((prev) => [...prev, result.comment]);
