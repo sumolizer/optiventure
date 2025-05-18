@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 function LocForum({
   locationForAnalysis,
   onSearch,
@@ -10,6 +11,7 @@ function LocForum({
   const [location, setLocation] = useState("");
   const [top5, setTop5] = useState([]);
   const [analysisMode, setAnalysisMode] = useState(false);
+  const navigate = useNavigate();
   const capitalizeFirstWord = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
@@ -46,38 +48,102 @@ function LocForum({
     if (!location) return;
     onSearch(location);
   };
-
+  const handleRedirect = () => {
+    const data = {
+      lat: locationForAnalysis.lat,
+      lon: locationForAnalysis.lng,
+    };
+    navigate("/reports", { state: data });
+  };
   const performAnalysis = async () => {
     console.log("performAnalysis called with:", locationForAnalysis);
-
     try {
       console.log(locationForAnalysis.lat, locationForAnalysis.lng);
-      const res = await axios.get(
-        `https://4082-34-171-188-148.ngrok-free.app/api/predict`,
-        {
-          params: {
-            lat: locationForAnalysis.lat,
-            lon: locationForAnalysis.lng,
-          },
-          headers: {
-            "Content-Type": "application/json",
-            "ngrok-skip-browser-warning": "true", // Add necessary headers
-            // 'Authorization': 'Bearer YOUR_TOKEN', // If authorization is needed
-          },
-        }
-      );
-      console.log(res.data);
 
-      const data = res.data.top_5 || [];
-      setTop5(data);
-      setAnalysisMode(true);
-      console.log(data);
-      resetTrigger(); // Reset after successful analysis
+      // Initialize the Gemini AI client - using import instead of require
+      // Make sure to add this import at the top of your file:
+      // import { GoogleGenerativeAI } from "@google/generative-ai";
+      const apiKey = "AIzaSyDTaMh_Lje1Y0MwygHYKx8AShNR18lORfo";
+      const genAI = new GoogleGenerativeAI(apiKey);
+
+      // Create model instance
+      const model = genAI.getGenerativeModel({
+        model: "gemini-1.5-flash-latest",
+        generationConfig: {
+          responseMimeType: "application/json",
+        },
+      });
+
+      // Construct the prompt with the current location
+      const prompt = `Tell me 5 best possible business to start in location latitude ${locationForAnalysis.lat} and long ${locationForAnalysis.lng}. Respond strictly in JSON format dont say anything else other than json
+Example:
+{
+  "top_5": [
+    {
+      "businessName": "Business Idea 1",
+      "description": "Description of Business Idea 1, the demand and market saturation",
+      "successRate": "83.97"(sort according to probabilities)
+    },
+    // 4 more business ideas
+  ]
+}`;
+
+      // Generate content from Gemini
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const text = response.text();
+      console.log("Raw text response:", text);
+
+      // Parse the JSON response
+      try {
+        const jsonResponse = JSON.parse(text);
+        console.log("Parsed JSON:", jsonResponse);
+
+        // Extract the top_5 businesses from the response
+        const data = jsonResponse.top_5 || [];
+        setTop5(data);
+        setAnalysisMode(true);
+        console.log(data);
+        resetTrigger(); // Reset after successful analysis
+      } catch (jsonError) {
+        console.error("Failed to parse JSON:", jsonError);
+        console.error("Non-JSON response received:", text);
+        alert("Failed to parse business suggestions.");
+        resetTrigger(); // Reset on error
+      }
     } catch (err) {
-      console.error("Error fetching analysis:", err);
-      alert("Failed to fetch business suggestions.");
+      console.error("Error generating business suggestions:", err);
+      alert("Failed to generate business suggestions.");
       resetTrigger(); // Reset even on error
     }
+    // try {
+    //   console.log(locationForAnalysis.lat, locationForAnalysis.lng);
+    //   const res = await axios.get(
+    //     `https://cecf-34-136-94-177.ngrok-free.app/api/predict`,
+    //     {
+    //       params: {
+    //         lat: locationForAnalysis.lat,
+    //         lon: locationForAnalysis.lng,
+    //       },
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //         "ngrok-skip-browser-warning": "true", // Add necessary headers
+    //         // 'Authorization': 'Bearer YOUR_TOKEN', // If authorization is needed
+    //       },
+    //     }
+    //   );
+    //   console.log(res.data);
+
+    //   const data = res.data.top_5 || [];
+    //   setTop5(data);
+    //   setAnalysisMode(true);
+    //   console.log(data);
+    //   resetTrigger(); // Reset after successful analysis
+    // } catch (err) {
+    //   console.error("Error fetching analysis:", err);
+    //   alert("Failed to fetch business suggestions.");
+    //   resetTrigger(); // Reset even on error
+    // }
   };
 
   const handleAnalyse = async () => {
@@ -104,28 +170,37 @@ function LocForum({
           Analysis Report
         </h2>
 
-        <div className="darkcontainer px-11">
+        <div className="darkcontainer px-4">
           {top5.map((item, index) => (
             <div
               key={index}
-              className="optifont capitalize bg-gray-800 text-white rounded-lg p-2 my-1 shadow-lg"
+              className="optifont bg-gray-800 text-white rounded-lg p-4 my-2 shadow-lg"
             >
               <h5 className="text-base font-semibold capitalize">
-                {index + 1}.{" "}
-                {capitalizeFirstWord(item.business_type.replace("_", " "))}
-                <p className="text-xs font-light">
-                  Success Probability:{" "}
-                  <span className="font-semibold">
-                    {item.success_probability.toFixed(2)}%
-                  </span>
-                </p>
+                {index + 1}. {item.businessName}
               </h5>
+              <p className="text-xs font-light mt-2">
+                Success Rate:{" "}
+                <span className="font-semibold text-green-400">
+                  {item.successRate}
+                </span>
+              </p>
             </div>
           ))}
-          <button className="nv-active"> Generate Report </button>
-          <button className=" ml-4 rounded nv-inactive" onClick={handleBack}>
-            Back
-          </button>
+          <div className="mt-4 flex space-x-4">
+            <button
+              className="nv-active px-4 py-2 rounded"
+              onClick={handleRedirect}
+            >
+              Generate Report
+            </button>
+            <button
+              className="nv-inactive px-4 py-2 rounded"
+              onClick={handleBack}
+            >
+              Back
+            </button>
+          </div>
         </div>
       </div>
     );

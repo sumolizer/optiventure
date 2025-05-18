@@ -3,13 +3,14 @@ import { useAuth } from "../context/AuthContext";
 import { Crynavbar } from "../components/crynavbar";
 import Maps from "../components/maps";
 import LocForum from "../components/locationforum";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const { user } = useAuth();
   const [searchLocation, setSearchLocation] = useState("");
   const [locationForAnalysis, setLocationForAnalysis] = useState(null);
   const [triggerAnalysis, setTriggerAnalysis] = useState(false);
-
+  const navigate = useNavigate();
   // Function to update location when "Find Location" button in LocForum is clicked
   const handleSearchLocation = (location) => {
     console.log("Home - handleSearchLocation called with:", location);

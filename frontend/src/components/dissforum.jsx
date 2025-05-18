@@ -101,7 +101,7 @@ const CommentsList = () => {
             ) : (
               <button
                 onClick={() => setShowCreateModal(true)}
-                className="nv-active bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transform hover:scale-105 transition"
+                className="nv-active optifont hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transform hover:scale-105 transition"
               >
                 + Share your thoughts with the community!
               </button>
@@ -208,7 +208,7 @@ const CommentsList = () => {
                         {user && user.uid === comment.userId && (
                           <button
                             onClick={() => handleDeleteComment(comment._id)}
-                            className="text-sm bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition"
+                            className="text-sm nv-inactive text-white px-4 py-2 rounded-lg transition"
                           >
                             Delete
                           </button>
