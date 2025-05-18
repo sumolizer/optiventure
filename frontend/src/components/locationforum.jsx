@@ -9,7 +9,7 @@ function LocForum({
   resetTrigger,
 }) {
   const [location, setLocation] = useState("");
-  const [top5, setTop5] = useState([]);
+  const [top10, setTop10] = useState([]);
   const [analysisMode, setAnalysisMode] = useState(false);
   const navigate = useNavigate();
   const capitalizeFirstWord = (str) => {
@@ -48,12 +48,11 @@ function LocForum({
     if (!location) return;
     onSearch(location);
   };
-  const handleRedirect = () => {
-    const data = {
-      lat: locationForAnalysis.lat,
-      lon: locationForAnalysis.lng,
+  const handleRedirect = (businesses) => {
+    const reportData = {
+      businesses: businesses,
     };
-    navigate("/reports", { state: data });
+    navigate("/reports", { state: reportData });
   };
   const performAnalysis = async () => {
     console.log("performAnalysis called with:", locationForAnalysis);
@@ -75,16 +74,16 @@ function LocForum({
       });
 
       // Construct the prompt with the current location
-      const prompt = `Tell me 5 best possible business to start in location latitude ${locationForAnalysis.lat} and long ${locationForAnalysis.lng}. Respond strictly in JSON format dont say anything else other than json
+      const prompt = `Tell me 10 best possible business to start in location latitude ${locationForAnalysis.lat} and long ${locationForAnalysis.lng} in 750meter radius keep in view the demand and saturation. Respond strictly in JSON format dont say anything else other than json
 Example:
 {
-  "top_5": [
+  "top_10": [
     {
       "businessName": "Business Idea 1",
       "description": "Description of Business Idea 1, the demand and market saturation",
       "successRate": "83.97"(sort according to probabilities)
     },
-    // 4 more business ideas
+    // 9 more business ideas
   ]
 }`;
 
@@ -100,8 +99,22 @@ Example:
         console.log("Parsed JSON:", jsonResponse);
 
         // Extract the top_5 businesses from the response
-        const data = jsonResponse.top_5 || [];
-        setTop5(data);
+        const data = jsonResponse.top_10 || [];
+        // Add location data to the data object for the report
+        const reportData = {
+          businesses: data,
+          location: {
+            lat: locationForAnalysis.lat,
+            lng: locationForAnalysis.lng,
+          },
+          timestamp: new Date().toISOString(),
+        };
+        sessionStorage.setItem(
+          "businessReportData",
+          JSON.stringify(reportData)
+        );
+
+        setTop10(data);
         setAnalysisMode(true);
         console.log(data);
         resetTrigger(); // Reset after successful analysis
@@ -171,12 +184,9 @@ Example:
         </h2>
 
         <div className="darkcontainer px-4">
-          {top5.map((item, index) => (
-            <div
-              key={index}
-              className="optifont bg-gray-800 text-white rounded-lg p-4 my-2 shadow-lg"
-            >
-              <h5 className="text-base font-semibold capitalize">
+          {top10.slice(0, 5).map((item, index) => (
+            <div key={index} className="optifont  text-white p-2 m-1">
+              <h5 className="text-sm font-semibold capitalize">
                 {index + 1}. {item.businessName}
               </h5>
               <p className="text-xs font-light mt-2">
@@ -190,7 +200,17 @@ Example:
           <div className="mt-4 flex space-x-4">
             <button
               className="nv-active px-4 py-2 rounded"
-              onClick={handleRedirect}
+              onClick={() => {
+                const reportData = {
+                  businesses: top10,
+                  location: {
+                    lat: locationForAnalysis.lat,
+                    lng: locationForAnalysis.lng,
+                  },
+                  timestamp: new Date().toISOString(),
+                };
+                handleRedirect(reportData);
+              }}
             >
               Generate Report
             </button>

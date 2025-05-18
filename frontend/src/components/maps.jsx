@@ -53,7 +53,7 @@ function Maps({ searchLocation, setLocationForAnalysis, setTriggerAnalysis }) {
 
     const geocodeURL = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
       searchLocation
-    )}&key=AIzaSyBI7wu-K_I33H4dXbAHgjiahwMD6vRaj-k`;
+    )}&key=AIzaSyBFJ75lm0fF7lb0voBECGol1fUTSv56z3w`;
 
     fetch(geocodeURL)
       .then((response) => response.json())
@@ -77,7 +77,7 @@ function Maps({ searchLocation, setLocationForAnalysis, setTriggerAnalysis }) {
   }, [searchLocation]);
 
   return (
-    <LoadScript googleMapsApiKey="AIzaSyBI7wu-K_I33H4dXbAHgjiahwMD6vRaj-k">
+    <LoadScript googleMapsApiKey="AIzaSyBFJ75lm0fF7lb0voBECGol1fUTSv56z3w">
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={currentLocation}
