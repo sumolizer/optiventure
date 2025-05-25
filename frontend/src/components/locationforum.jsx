@@ -74,13 +74,14 @@ function LocForum({
       });
 
       // Construct the prompt with the current location
-      const prompt = `Tell me 10 best possible business to start in location latitude ${locationForAnalysis.lat} and long ${locationForAnalysis.lng} in 750meter radius keep in view the demand and saturation. Respond strictly in JSON format dont say anything else other than json
+      const prompt = `Tell me 10 best possible business ( Keep in view region is pakistan ) to start in location latitude ${locationForAnalysis.lat} and long ${locationForAnalysis.lng} in 750meter radius( Success probability should be in decimal , calculate it by this formula SP = Demand - 0.4(Saturation), higher the review amount = higher the demand , higher the business of same category in radius = higher saturation, lower than 4 star ratings = lower saturation ) Respond strictly in JSON format dont say anything else other than json
 Example:
 {
   "top_10": [
     {
       "businessName": "Business Idea 1",
-      "description": "Description of Business Idea 1, the demand and market saturation",
+      "description": "Description of Business Idea 1,",
+       "feasibility" : " the demand and market saturation analysis for this business idea",
       "successRate": "83.97"(sort according to probabilities)
     },
     // 9 more business ideas
@@ -97,10 +98,7 @@ Example:
       try {
         const jsonResponse = JSON.parse(text);
         console.log("Parsed JSON:", jsonResponse);
-
-        // Extract the top_5 businesses from the response
         const data = jsonResponse.top_10 || [];
-        // Add location data to the data object for the report
         const reportData = {
           businesses: data,
           location: {
@@ -184,7 +182,7 @@ Example:
         </h2>
 
         <div className="darkcontainer px-4">
-          {top10.slice(0, 5).map((item, index) => (
+          {top10.slice(0, 4).map((item, index) => (
             <div key={index} className="optifont  text-white p-2 m-1">
               <h5 className="text-sm font-semibold capitalize">
                 {index + 1}. {item.businessName}
@@ -192,7 +190,7 @@ Example:
               <p className="text-xs font-light mt-2">
                 Success Rate:{" "}
                 <span className="font-semibold text-green-400">
-                  {item.successRate}
+                  {item.successRate * 100}%
                 </span>
               </p>
             </div>

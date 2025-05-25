@@ -74,9 +74,11 @@ function Reports() {
               <h3 className="font-bold text-lg mb-2">
                 {index + 1}. {business.businessName}
               </h3>
-              <p className="text-sm mb-2">{business.description}</p>
+              <p className="text-sm mb-2">
+                {business.feasibility} <br /> {business.description}
+              </p>
               <p className="text-sm font-medium text-green-300">
-                Success Rate: {business.successRate}%
+                Success Rate: {business.successRate * 100}%
               </p>
             </div>
           ))}

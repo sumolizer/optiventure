@@ -19,7 +19,6 @@ function Maps({ searchLocation, setLocationForAnalysis, setTriggerAnalysis }) {
   const [selected, setSelected] = useState(null);
   const [isLocationSelected, setIsLocationSelected] = useState(false);
 
-  // Handle map click to place a draggable marker
   const handleMapClick = (e) => {
     const { latLng } = e;
     const lat = latLng.lat();
@@ -31,7 +30,6 @@ function Maps({ searchLocation, setLocationForAnalysis, setTriggerAnalysis }) {
     setLocationForAnalysis(newLocation); // Also update locationForAnalysis immediately
   };
 
-  // Handle the "Analyse" button click
   const handleAnalyse = () => {
     console.log("Maps - handleAnalyse called");
     console.log("Maps - currentLocation:", currentLocation);
@@ -41,25 +39,21 @@ function Maps({ searchLocation, setLocationForAnalysis, setTriggerAnalysis }) {
       alert("Please select a location on the map!");
       return;
     }
-
-    // Location should already be set, just trigger the analysis
     console.log("Maps - Triggering analysis");
     setTriggerAnalysis(true);
   };
 
-  // Update location from LocForum search and move pin to the nearest location
   useEffect(() => {
     if (!searchLocation) return;
 
-    const geocodeURL = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-      searchLocation
-    )}&key=AIzaSyBFJ75lm0fF7lb0voBECGol1fUTSv56z3w`;
+    const geocoder = new window.google.maps.Geocoder();
 
-    fetch(geocodeURL)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.results.length === 0) return alert("❌ Location not found!");
-        const { lat, lng } = data.results[0].geometry.location;
+    geocoder.geocode({ address: searchLocation }, (results, status) => {
+      if (status === "OK" && results && results.length > 0) {
+        const location = results[0].geometry.location;
+        const lat = location.lat();
+        const lng = location.lng();
+
         console.log("Geocode result - lat:", lat, "lng:", lng);
 
         // Set the current location
@@ -72,8 +66,11 @@ function Maps({ searchLocation, setLocationForAnalysis, setTriggerAnalysis }) {
           lat,
           lng,
         });
-      })
-      .catch((error) => console.error("Error fetching location:", error));
+      } else {
+        console.error("Geocoder failed due to: " + status);
+        alert("❌ Location not found!");
+      }
+    });
   }, [searchLocation]);
 
   return (
