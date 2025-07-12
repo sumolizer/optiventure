@@ -78,7 +78,7 @@ function Reports() {
                 {business.feasibility} <br /> {business.description}
               </p>
               <p className="text-sm font-medium text-green-300">
-                Success Rate: {business.successRate * 100}%
+                Success Rate: {business.successRate}%
               </p>
             </div>
           ))}

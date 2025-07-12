@@ -67,27 +67,45 @@ function LocForum({
 
       // Create model instance
       const model = genAI.getGenerativeModel({
-        model: "gemini-1.5-flash-latest",
+        model: "gemini-2.5-flash-preview-05-20",
         generationConfig: {
           responseMimeType: "application/json",
         },
       });
 
       // Construct the prompt with the current location
-      const prompt = `Tell me 10 best possible business ( Keep in view region is pakistan ) to start in location latitude ${locationForAnalysis.lat} and long ${locationForAnalysis.lng} in 750meter radius( Success probability should be in decimal , calculate it by this formula SP = Demand - 0.4(Saturation), higher the review amount = higher the demand , higher the business of same category in radius = higher saturation, lower than 4 star ratings = lower saturation ) Respond strictly in JSON format dont say anything else other than json
-Example:
+      const prompt = `
+You are a data analyst AI with access to Google Maps and location intelligence. Your task is to recommend 10 realistic business ideas based on the business landscape in a 750-meter radius around the given coordinates in Pakistan.
+
+Instructions:
+- Analyze nearby businesses using Google Maps data.
+- Use real local trends if possible.
+- Calculate Success Probability (SP) using:
+  - Higher number of reviews = Higher Demand
+  - More businesses of same type = Higher Saturation
+- Sort by success probability  
+- No mobile phone repair shop, no pet grooming business
+
+Return output strictly in raw JSON only. Do not explain or wrap the response.
+
+Input:
+Latitude: ${locationForAnalysis.lat}
+Longitude: ${locationForAnalysis.lng}
+Radius: 750 meters
+
+Respond using this exact structure:
 {
   "top_10": [
     {
-      "businessName": "Business Idea 1",
-      "description": "Description of Business Idea 1,",
-       "feasibility" : " the demand and market saturation analysis for this business idea",
-      "successRate": "83.97"(sort according to probabilities)
+      "businessName": "Example: Juice Bar",
+      "description": "Why this business fits the location based on current demand/saturation.",
+      "feasibility": "Brief explanation using SP formula",
+      "successRate": 83.97
     },
-    // 9 more business ideas
+    // 9 more
   ]
-}`;
-
+}
+`;
       // Generate content from Gemini
       const result = await model.generateContent(prompt);
       const response = await result.response;
@@ -190,7 +208,7 @@ Example:
               <p className="text-xs font-light mt-2">
                 Success Rate:{" "}
                 <span className="font-semibold text-green-400">
-                  {item.successRate * 100}%
+                  {item.successRate}%
                 </span>
               </p>
             </div>
