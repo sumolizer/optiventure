@@ -1,8 +1,10 @@
-![optiAbstractlogo](https://github.com/user-attachments/assets/6fcf5342-2d62-46c5-9aa4-4131ec3b9be4)<h1> Optiventure</h1>
+![optiAbstractlogo](https://github.com/user-attachments/assets/6fcf5342-2d62-46c5-9aa4-4131ec3b9be4)<h1> Optiventure </h1>
 OptiVenture is a full-stack MERN application developed solely from scratch, designed for curious entrepreneurs in identifying optimal business opportunities. Built with industry-standard Full-Stack practices and a clean, minimal UI, the platform leverages data scraping, geospatial analysis, and advanced AI tools. OptiVenture integrates Google AI Studio and generative AI to deliver intelligent business recommendations tailored to specific locations. Users can input their desired area through a streamlined interface to receive data-driven suggestions along with projected success rates. A Report of top 10 business can be generated aswell.
 
-<h3> Screens </h3>
 
+
+<h3> Screens </h3>
+Web screens for different pages.
 <h6> Signup </h6>
 <img width="1920" height="915" alt="Signup" src="https://github.com/user-attachments/assets/3aca2bd2-940f-44f3-bde5-b885d27dab5d" />
 
