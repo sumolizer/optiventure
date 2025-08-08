@@ -18,11 +18,13 @@ function Maps({ searchLocation, setLocationForAnalysis, setTriggerAnalysis }) {
   const [currentLocation, setCurrentLocation] = useState(defaultCenter);
   const [selected, setSelected] = useState(null);
   const [isLocationSelected, setIsLocationSelected] = useState(false);
+  const mapsapi = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
   const handleMapClick = (e) => {
     const { latLng } = e;
     const lat = latLng.lat();
     const lng = latLng.lng();
+
     console.log("Map clicked - lat:", lat, "lng:", lng);
     const newLocation = { lat, lng };
     setCurrentLocation(newLocation);
@@ -74,7 +76,7 @@ function Maps({ searchLocation, setLocationForAnalysis, setTriggerAnalysis }) {
   }, [searchLocation]);
 
   return (
-    <LoadScript googleMapsApiKey="AIzaSyBFJ75lm0fF7lb0voBECGol1fUTSv56z3w">
+    <LoadScript googleMapsApiKey={mapsapi}>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={currentLocation}

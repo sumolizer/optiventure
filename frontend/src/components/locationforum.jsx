@@ -12,6 +12,7 @@ function LocForum({
   const [top10, setTop10] = useState([]);
   const [analysisMode, setAnalysisMode] = useState(false);
   const navigate = useNavigate();
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
   const capitalizeFirstWord = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
@@ -62,7 +63,6 @@ function LocForum({
       // Initialize the Gemini AI client - using import instead of require
       // Make sure to add this import at the top of your file:
       // import { GoogleGenerativeAI } from "@google/generative-ai";
-      const apiKey = "AIzaSyDTaMh_Lje1Y0MwygHYKx8AShNR18lORfo";
       const genAI = new GoogleGenerativeAI(apiKey);
 
       // Create model instance

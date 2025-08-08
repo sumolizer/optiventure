@@ -6,10 +6,11 @@ const mongoose = require("mongoose");
 const Note = require("./models/Notes");
 const Comment = require("./models/Forum");
 const cors = require("cors");
+const dburi = import.process.env.MONGO_URI
 app.use(cors());
 mongoose
   .connect(
-    "mongodb+srv://eurofan3148:LZom31qSQiyA8iyJ@cluster0.pxiuz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/optiventure",
+    dburi,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
